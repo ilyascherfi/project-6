@@ -21,10 +21,10 @@ public class User {
 
   @ManyToMany
   @JoinTable(
-          name = "user_theme",
+          name = "user_theme_subscriptions",
           joinColumns = @JoinColumn(name = "user_id"),
           inverseJoinColumns = @JoinColumn(name = "theme_id"))
-  private List<Theme> themes;
+  private List<Theme> subscriptions;
 
   @OneToMany(mappedBy = "user")
   private List<Article> articles;

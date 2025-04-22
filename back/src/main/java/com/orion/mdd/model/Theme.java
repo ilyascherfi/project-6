@@ -18,8 +18,8 @@ public class Theme {
   private String title;
   private String description;
 
-  @ManyToMany(mappedBy = "themes")
-  private List<User> users;
+  @ManyToMany(mappedBy = "subscriptions")
+  private List<User> subscribers;
 
   @OneToMany(mappedBy = "theme")
   private List<Article> articles;
