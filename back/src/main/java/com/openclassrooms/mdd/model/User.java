@@ -1,10 +1,13 @@
 package com.openclassrooms.mdd.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -19,6 +22,14 @@ public class User {
   private String username;
   private String email;
   private String password;
+
+  @Column(name = "created_at", updatable = false)
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
+  private LocalDate created_at;
+
+  @Column(name = "updated_at")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
+  private LocalDate updated_at;
 
   @ManyToMany
   @JoinTable(

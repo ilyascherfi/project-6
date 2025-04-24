@@ -1,6 +1,7 @@
 package com.openclassrooms.mdd.service;
 
 import com.openclassrooms.mdd.model.User;
+import com.openclassrooms.mdd.model.dto.auth.RegisterRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,15 +24,23 @@ public class UserService {
 
   public Boolean usernameExistsInDB(String username){
     List<User> users = userRepository.findByUsername(username); //usernames are unique
-    return users.size()>0;
+    return !users.isEmpty();
   }
   public Boolean emailExistsInDB(String email){
     List<User> users = userRepository.findByEmail(email); //emails are unique
-    return users.size()>0;
+    return !users.isEmpty();
   }
   public User findByUsernameOrEmail(String usernameOrEmail){
     List<User> user = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
-    return user.get(0);
+    return user.getFirst();
+  }
+
+  public void registerUser(RegisterRequest registerRequest){
+    User user = new User();
+    user.setUsername(registerRequest.username());
+    user.setEmail(registerRequest.email());
+    user.setPassword(encoder.encode(registerRequest.password()));
+    userRepository.save(user);
   }
 
 }
