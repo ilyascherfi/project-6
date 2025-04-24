@@ -1,5 +1,6 @@
 package com.openclassrooms.mdd.service;
 
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,15 +13,13 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.Period;
-import java.time.temporal.ChronoUnit;
 
 @Service
 public class JWTService {
-
   private JwtEncoder jwtEncoder;
   private AuthenticationManager authenticationManager;
 
-  public JWTService(JwtEncoder jwtEncoder) {
+  public JWTService(JwtEncoder jwtEncoder, AuthenticationManager authenticationManager) {
     this.jwtEncoder = jwtEncoder;
     this.authenticationManager = authenticationManager;
   }
@@ -40,8 +39,10 @@ public class JWTService {
   public String authenticate(String usernameOrEmail, String password){
     Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(usernameOrEmail, password));
     if (authentication.isAuthenticated()){
-      return generateToken(authentication);
+      String token = generateToken(authentication);
+      return token;
     }
     else return "";
   }
+
 }
