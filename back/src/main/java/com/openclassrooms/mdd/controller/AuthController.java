@@ -1,6 +1,7 @@
 package com.openclassrooms.mdd.controller;
 
 import com.openclassrooms.mdd.model.dto.auth.LoginRequest;
+import com.openclassrooms.mdd.model.dto.auth.LoginResponse;
 import com.openclassrooms.mdd.model.dto.auth.RegisterRequest;
 import com.openclassrooms.mdd.model.dto.auth.TokenResponse;
 import com.openclassrooms.mdd.service.JWTService;
@@ -8,6 +9,7 @@ import com.openclassrooms.mdd.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -33,6 +35,12 @@ public class AuthController {
     }
     userService.registerUser(registerRequest);
     return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @GetMapping("/me")
+  public ResponseEntity<?> token(Authentication authentication) {
+    LoginResponse response = userService.findByEmailAndReturnsDTO(authentication.getName());
+    return ResponseEntity.ok(response);
   }
 
   @PostMapping("/login")

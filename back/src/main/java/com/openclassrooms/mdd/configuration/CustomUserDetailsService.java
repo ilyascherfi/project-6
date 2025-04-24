@@ -22,6 +22,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     if (user.size() != 1) {
       throw new UsernameNotFoundException("User not found with Username or Email: " + usernameOrEmail);
     }
-    return new org.springframework.security.core.userdetails.User(user.get(0).getEmail(), user.get(0).getPassword(), new ArrayList<>()); //empty GrantedAuthorities
+    return new org.springframework.security.core.userdetails.User(user.getFirst().getEmail(), user.getFirst().getPassword(), new ArrayList<>()); //empty GrantedAuthorities
   }
 }

@@ -1,6 +1,8 @@
 package com.openclassrooms.mdd.service;
 
 import com.openclassrooms.mdd.model.User;
+import com.openclassrooms.mdd.model.dto.UserDTO;
+import com.openclassrooms.mdd.model.dto.auth.LoginResponse;
 import com.openclassrooms.mdd.model.dto.auth.RegisterRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,6 +37,14 @@ public class UserService {
     return user.getFirst();
   }
 
+  public LoginResponse findByEmailAndReturnsDTO(String email){
+    User user = userRepository.findByEmail(email).getFirst();
+    return new LoginResponse(
+            user.getId(),
+            user.getUsername(),
+            user.getEmail()
+    );
+  }
   public void registerUser(RegisterRequest registerRequest){
     User user = new User();
     user.setUsername(registerRequest.username());
