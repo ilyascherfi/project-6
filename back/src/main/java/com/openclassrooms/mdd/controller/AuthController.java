@@ -1,5 +1,7 @@
 package com.openclassrooms.mdd.controller;
 
+import com.nimbusds.oauth2.sdk.TokenResponse;
+import com.openclassrooms.mdd.model.dto.auth.LoginRequest;
 import com.openclassrooms.mdd.model.dto.auth.RegisterRequest;
 import com.openclassrooms.mdd.service.JWTService;
 import com.openclassrooms.mdd.service.UserService;
@@ -33,4 +35,19 @@ public class AuthController {
     userService.registerUser(registerRequest);
     return new ResponseEntity<>(HttpStatus.OK);
   }
+
+  /**
+   * This authenticates the user
+   * @param loginRequest the user credentials (username OR Email, password)
+   * @return a JWT token
+   */
+  @PostMapping("/login")
+  public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
+    String token = jwtService.authenticate(loginRequest.usernameOrEmail(), loginRequest.password());
+    if (token.length()>0){
+      return ResponseEntity.ok(new TokenResponse(token));
+    }
+    else return new ResponseEntity<String>("error", HttpStatus.OK);
+  }
+
 }
