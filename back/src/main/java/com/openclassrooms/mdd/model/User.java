@@ -23,14 +23,6 @@ public class User {
   private String email;
   private String password;
 
-  @Column(name = "created_at", updatable = false)
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
-  private LocalDate created_at;
-
-  @Column(name = "updated_at")
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
-  private LocalDate updated_at;
-
   @ManyToMany
   @JoinTable(
           name = "user_theme_subscriptions",
