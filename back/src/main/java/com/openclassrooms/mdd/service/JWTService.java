@@ -22,6 +22,7 @@ public class JWTService {
 
   public JWTService(JwtEncoder jwtEncoder) {
     this.jwtEncoder = jwtEncoder;
+    this.authenticationManager = authenticationManager;
   }
 
   public String generateToken(Authentication authentication) {
@@ -39,8 +40,7 @@ public class JWTService {
   public String authenticate(String usernameOrEmail, String password){
     Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(usernameOrEmail, password));
     if (authentication.isAuthenticated()){
-      String token = generateToken(authentication);
-      return token;
+      return generateToken(authentication);
     }
     else return "";
   }
