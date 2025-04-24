@@ -31,7 +31,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-public class SpringSecurityConfig {
+public class SecurityConfig {
 
   @Value("${mddapi.app.jwtSecret}")
   private String jwtKey;
