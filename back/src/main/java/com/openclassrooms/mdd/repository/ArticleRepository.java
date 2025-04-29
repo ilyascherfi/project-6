@@ -3,5 +3,8 @@ package com.openclassrooms.mdd.repository;
 import com.openclassrooms.mdd.model.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ArticleRepository extends JpaRepository<Article, Long> {
+import java.util.List;
+
+public interface ArticleRepository extends JpaRepository<Article, Integer> {
+  public List<Article> findByThemeThemeId(Integer themeId);
 }

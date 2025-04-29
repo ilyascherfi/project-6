@@ -5,7 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 import jakarta.persistence.*;
-import java.util.Date;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -16,10 +17,10 @@ import java.util.List;
 public class Article {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Integer id;
   private String title;
   private String content;
-  private Date date;
+  private LocalDate date;
 
   @ManyToOne
   @JoinColumn(name = "user_id")
