@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 @Entity
 @Table(name = "comments")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class Comment {
   @Id
@@ -23,4 +22,12 @@ public class Comment {
   @ManyToOne
   @JoinColumn(name = "article_id")
   private Article article;
+  public Comment() {
+  }
+
+  public Comment(Article article, User user, String content) {
+    this.article = article;
+    this.user = user;
+    this.content = content;
+  }
 }
