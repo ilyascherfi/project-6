@@ -1,13 +1,10 @@
 package com.openclassrooms.mdd.model;
 
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity

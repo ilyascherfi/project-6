@@ -1,6 +1,7 @@
 package com.openclassrooms.mdd.service;
 
 import com.openclassrooms.mdd.model.User;
+import com.openclassrooms.mdd.model.dto.ThemeDTO;
 import com.openclassrooms.mdd.model.dto.UserDTO;
 import com.openclassrooms.mdd.model.dto.auth.LoginResponse;
 import com.openclassrooms.mdd.model.dto.auth.RegisterRequest;
@@ -39,10 +40,14 @@ public class UserService {
 
   public LoginResponse findByEmailAndReturnsDTO(String email){
     User user = userRepository.findByEmail(email).getFirst();
+    ThemeDTO[] themes = user.getSubscriptions().stream()
+            .map((element) -> modelMapper.map(element, ThemeDTO.class))
+            .toArray(size -> new ThemeDTO[size]);
     return new LoginResponse(
             user.getId(),
             user.getUsername(),
-            user.getEmail()
+            user.getEmail(),
+            themes
     );
   }
   public void registerUser(RegisterRequest registerRequest){
