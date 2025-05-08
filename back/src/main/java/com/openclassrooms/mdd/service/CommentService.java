@@ -7,7 +7,9 @@ import com.openclassrooms.mdd.model.dto.PostComment;
 import com.openclassrooms.mdd.repository.ArticleRepository;
 import com.openclassrooms.mdd.repository.CommentRepository;
 import com.openclassrooms.mdd.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CommentService {
   private CommentRepository commentRepository;
   private UserRepository userRepository;
