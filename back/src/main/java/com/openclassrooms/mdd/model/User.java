@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,6 +20,7 @@ public class User {
   private String username;
   private String email;
   private String password;
+  private List<Theme> themes = new ArrayList<>();
 
   @ManyToMany
   @JoinTable(

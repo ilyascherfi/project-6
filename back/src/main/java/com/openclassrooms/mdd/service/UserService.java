@@ -1,15 +1,20 @@
 package com.openclassrooms.mdd.service;
 
+import com.openclassrooms.mdd.model.Theme;
 import com.openclassrooms.mdd.model.User;
 import com.openclassrooms.mdd.model.dto.ThemeDTO;
 import com.openclassrooms.mdd.model.dto.UserDTO;
 import com.openclassrooms.mdd.model.dto.auth.LoginResponse;
+import com.openclassrooms.mdd.model.dto.auth.ModifyNoPassword;
+import com.openclassrooms.mdd.model.dto.auth.ModifyRequest;
 import com.openclassrooms.mdd.model.dto.auth.RegisterRequest;
+import com.openclassrooms.mdd.repository.ThemeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.openclassrooms.mdd.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,11 +23,13 @@ public class UserService {
   private final UserRepository userRepository;
   private final BCryptPasswordEncoder encoder;
   private final ModelMapper modelMapper;
+  private final ThemeRepository themeRepository;
 
-  public UserService(UserRepository userRepository, BCryptPasswordEncoder encoder, ModelMapper modelMapper){
+  public UserService(UserRepository userRepository,ThemeRepository themeRepository, BCryptPasswordEncoder encoder, ModelMapper modelMapper){
     this.userRepository = userRepository;
     this.encoder = encoder;
     this.modelMapper = modelMapper;
+    this.themeRepository = themeRepository;
   }
 
   public Boolean usernameExistsInDB(String username){
@@ -55,6 +62,37 @@ public class UserService {
     user.setUsername(registerRequest.username());
     user.setEmail(registerRequest.email());
     user.setPassword(encoder.encode(registerRequest.password()));
+    userRepository.save(user);
+  }
+
+  public void putUser(ModifyRequest request){
+    User user = userRepository.findById(request.getId()).get(); // ID in DB, because sent from front, that get it from Backend's DB
+    user.setEmail(request.getEmail());
+    user.setUsername(request.getUsername());
+    user.setPassword(encoder.encode(request.getPassword()));
+    userRepository.save(user);
+  }
+  public void putUserNoPassword(ModifyNoPassword request){
+    User user = userRepository.findById(request.getId()).get(); // ID in DB, because sent from front, that get it from Backend's DB
+    user.setEmail(request.getEmail());
+    user.setUsername(request.getUsername());
+    userRepository.save(user);
+  }
+
+  public void addThemeToUser(String email, Integer themeId) {
+    User user = userRepository.findByEmail(email).getFirst();
+    Theme theme = themeRepository.findById(themeId).get();
+    user.getThemes().add(theme);
+    userRepository.save(user);
+  }
+  public void removeThemeToUser(String email, Integer themeId) {
+    User user = userRepository.findByEmail(email).getFirst();
+    Theme themeToRemove = themeRepository.findById(themeId).get();
+    List<Theme> updatedThemes = user.getThemes().stream().filter(
+                    (theme) -> !theme.getId().equals(themeToRemove.getId()))
+            .toList();
+    ArrayList<Theme> updatedThemesArraylist = new ArrayList<>(updatedThemes);
+    user.setThemes(updatedThemesArraylist);
     userRepository.save(user);
   }
 

@@ -7,7 +7,7 @@ import com.openclassrooms.mdd.model.User;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Integer> {
   List<User> findByEmail(String email);
   List<User> findByUsername(String username);
   List<User> findByUsernameOrEmail(String username, String password);
