@@ -20,19 +20,13 @@ public class User {
   private String username;
   private String email;
   private String password;
-  @ManyToMany
-  @JoinTable(
-          name = "user_themes",
-          joinColumns = @JoinColumn(name = "user_id"),
-          inverseJoinColumns = @JoinColumn(name = "theme_id"))
-  private List<Theme> themes = new ArrayList<>();
 
   @ManyToMany
   @JoinTable(
           name = "user_theme_subscriptions",
           joinColumns = @JoinColumn(name = "user_id"),
           inverseJoinColumns = @JoinColumn(name = "theme_id"))
-  private List<Theme> subscriptions;
+  private List<Theme> subscriptions = new ArrayList<>();
 
   @OneToMany(mappedBy = "user")
   private List<Article> articles;

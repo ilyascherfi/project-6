@@ -66,14 +66,14 @@ public class UserService {
   }
 
   public void putUser(ModifyRequest request){
-    User user = userRepository.findById(request.getId()).get(); // ID in DB, because sent from front, that get it from Backend's DB
+    User user = userRepository.findById(request.getId()).get();
     user.setEmail(request.getEmail());
     user.setUsername(request.getUsername());
     user.setPassword(encoder.encode(request.getPassword()));
     userRepository.save(user);
   }
   public void putUserNoPassword(ModifyNoPassword request){
-    User user = userRepository.findById(request.getId()).get(); // ID in DB, because sent from front, that get it from Backend's DB
+    User user = userRepository.findById(request.getId()).get();
     user.setEmail(request.getEmail());
     user.setUsername(request.getUsername());
     userRepository.save(user);
@@ -82,17 +82,17 @@ public class UserService {
   public void addThemeToUser(String email, Integer themeId) {
     User user = userRepository.findByEmail(email).getFirst();
     Theme theme = themeRepository.findById(themeId).get();
-    user.getThemes().add(theme);
+    user.getSubscriptions().add(theme);
     userRepository.save(user);
   }
   public void removeThemeToUser(String email, Integer themeId) {
     User user = userRepository.findByEmail(email).getFirst();
     Theme themeToRemove = themeRepository.findById(themeId).get();
-    List<Theme> updatedThemes = user.getThemes().stream().filter(
+    List<Theme> updatedThemes = user.getSubscriptions().stream().filter(
                     (theme) -> !theme.getId().equals(themeToRemove.getId()))
             .toList();
     ArrayList<Theme> updatedThemesArraylist = new ArrayList<>(updatedThemes);
-    user.setThemes(updatedThemesArraylist);
+    user.setSubscriptions(updatedThemesArraylist);
     userRepository.save(user);
   }
 
