@@ -19,9 +19,9 @@ public class ArticleController {
   }
 
   @PostMapping
-  public ResponseEntity<?> addArticle(Authentication authentication, @Valid @RequestBody PostArticleRequest postArticleRequest) {
+  public ResponseEntity<String> addArticle(Authentication authentication, @Valid @RequestBody PostArticleRequest postArticleRequest) {
     articleService.addArticle(postArticleRequest, authentication.getName());
-    return new ResponseEntity<>(HttpStatus.OK);
+    return ResponseEntity.ok("L'article a été bien créé");
   }
 
   @GetMapping("/{id}")
