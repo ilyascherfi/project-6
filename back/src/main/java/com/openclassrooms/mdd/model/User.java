@@ -20,6 +20,11 @@ public class User {
   private String username;
   private String email;
   private String password;
+  @ManyToMany
+  @JoinTable(
+          name = "user_themes",
+          joinColumns = @JoinColumn(name = "user_id"),
+          inverseJoinColumns = @JoinColumn(name = "theme_id"))
   private List<Theme> themes = new ArrayList<>();
 
   @ManyToMany
