@@ -1,5 +1,6 @@
 package com.openclassrooms.mdd.controller;
 
+import com.openclassrooms.mdd.model.dto.ThemeSubscriptionRequest;
 import com.openclassrooms.mdd.model.dto.auth.ModifyNoPassword;
 import com.openclassrooms.mdd.model.dto.auth.ModifyRequest;
 import com.openclassrooms.mdd.service.UserService;
@@ -33,27 +34,16 @@ public class UserController {
     return ResponseEntity.ok("User Modification Successfull");
   }
 
-  /**
-   * This modifies a User in database, to add a Theme to a User's Themes list
-   * @param themeId id of the theme to add
-   * @param authentication to get the User to update
-   * @return Http200 response with String in body
-   */
-  @PutMapping(value= "/subscribe/{id}")
-  public ResponseEntity<?> subscribeToTheme(@PathVariable("id") Integer themeId, Authentication authentication) {
-    userService.addThemeToUser(authentication.getName(), themeId);
+
+  @PutMapping(value = "/subscribe")
+  public ResponseEntity<String> subscribeToTheme(@RequestBody ThemeSubscriptionRequest request, Authentication authentication) {
+    userService.addThemeToUser(authentication.getName(), request.getThemeId());
     return ResponseEntity.ok("Theme added successfully");
   }
 
-  /**
-   * This modifies a User in database, to remove a Theme to a User's Themes list
-   * @param themeId id of the theme to add
-   * @param authentication to get the User to update
-   * @return Http200 response with String in body
-   */
-  @PutMapping(value= "/unSubscribe/{id}")
-  public ResponseEntity<?> unSubscribeToTheme(@PathVariable("id") Integer themeId, Authentication authentication) {
-    userService.removeThemeToUser(authentication.getName(), themeId);
+  @PutMapping(value = "/unSubscribe")
+  public ResponseEntity<String> unSubscribeToTheme(@RequestBody ThemeSubscriptionRequest request, Authentication authentication) {
+    userService.removeThemeToUser(authentication.getName(), request.getThemeId());
     return ResponseEntity.ok("Theme removed successfully");
   }
 }
