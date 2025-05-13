@@ -41,7 +41,7 @@ public class UserController {
     return ResponseEntity.ok("Theme added successfully");
   }
 
-  @PutMapping(value = "/unSubscribe")
+  @PutMapping(value = "/unsubscribe")
   public ResponseEntity<String> unSubscribeToTheme(@RequestBody ThemeSubscriptionRequest request, Authentication authentication) {
     userService.removeThemeToUser(authentication.getName(), request.getThemeId());
     return ResponseEntity.ok("Theme removed successfully");

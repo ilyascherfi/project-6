@@ -3,7 +3,6 @@ package com.openclassrooms.mdd.service;
 import com.openclassrooms.mdd.model.Theme;
 import com.openclassrooms.mdd.model.User;
 import com.openclassrooms.mdd.model.dto.ThemeDTO;
-import com.openclassrooms.mdd.model.dto.UserDTO;
 import com.openclassrooms.mdd.model.dto.auth.LoginResponse;
 import com.openclassrooms.mdd.model.dto.auth.ModifyNoPassword;
 import com.openclassrooms.mdd.model.dto.auth.ModifyRequest;
@@ -45,7 +44,7 @@ public class UserService {
     return user.getFirst();
   }
 
-  public LoginResponse findByEmailAndReturnsDTO(String email){
+  public LoginResponse findByEmail(String email){
     User user = userRepository.findByEmail(email).getFirst();
     ThemeDTO[] themes = user.getSubscriptions().stream()
             .map((element) -> modelMapper.map(element, ThemeDTO.class))

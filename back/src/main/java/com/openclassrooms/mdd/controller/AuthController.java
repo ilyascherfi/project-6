@@ -12,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("api/auth")
 public class AuthController {
@@ -28,25 +26,24 @@ public class AuthController {
   @PostMapping("/register")
   public ResponseEntity<?>  register(@Valid @RequestBody RegisterRequest registerRequest) {
     if(userService.usernameExistsInDB(registerRequest.username())){
-      return new ResponseEntity<String>("Username already taken", HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>("Username already taken", HttpStatus.BAD_REQUEST);
     }
     if(userService.emailExistsInDB(registerRequest.email())){
-      return new ResponseEntity<String>("Username already taken", HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>("Username already taken", HttpStatus.BAD_REQUEST);
     }
     userService.registerUser(registerRequest);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @GetMapping("/me")
-  public ResponseEntity<?> token(Authentication authentication) {
-    LoginResponse response = userService.findByEmailAndReturnsDTO(authentication.getName());
-    return ResponseEntity.ok(response);
+  public ResponseEntity<LoginResponse> token(Authentication authentication) {
+    return ResponseEntity.ok(userService.findByEmail(authentication.getName()));
   }
 
   @PostMapping("/login")
   public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
-    String token = jwtService.authenticate(loginRequest.usernameOrEmail(), loginRequest.password());
-    if (token.length()>0){
+    String token = jwtService.authenticate(loginRequest);
+    if (!token.isEmpty()){
       return ResponseEntity.ok(new TokenResponse(token));
     }
     else return new ResponseEntity<String>("error", HttpStatus.OK);

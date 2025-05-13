@@ -1,6 +1,7 @@
 package com.openclassrooms.mdd.service;
 
 
+import com.openclassrooms.mdd.model.dto.auth.LoginRequest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -36,11 +37,10 @@ public class JWTService {
     return this.jwtEncoder.encode(jwtEncoderParameters).getTokenValue();
   }
 
-  public String authenticate(String usernameOrEmail, String password){
-    Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(usernameOrEmail, password));
+  public String authenticate(LoginRequest loginRequest){
+    Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.usernameOrEmail(), loginRequest.password()));
     if (authentication.isAuthenticated()){
-      String token = generateToken(authentication);
-      return token;
+      return generateToken(authentication);
     }
     else return "";
   }
