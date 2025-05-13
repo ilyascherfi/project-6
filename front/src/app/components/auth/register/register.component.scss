@@ -1,0 +1,53 @@
+
+.header{
+    border-bottom: solid 2px;
+}
+.logo_div{
+    width:  fit-content;
+    height: 15%;
+}
+
+img{
+    padding-left: 3em;
+    height: 10em;
+}
+
+.register_page{
+    text-align: center;
+}
+
+.back{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: white;
+    border: 0px;
+    margin-top: 13em;
+    cursor: pointer;
+}
+.arrow{
+    margin: 2em 3em;
+    transform: scale(3);
+}
+
+.title{
+    width: fit-content;
+    align-self: center;
+    font-size: 3em;
+    font-weight: 400;
+    margin: auto;
+    margin-bottom: 1.2em;
+    padding-top: 1.5em;
+}
+
+.form_input{
+    text-align: start;
+    width: 30%;
+    margin: auto;
+    font-size: 1.6em;
+    font-weight: 400;
+    margin-bottom: 1.5em;
+}
+input{
+    width: 100%;
+}
