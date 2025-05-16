@@ -19,17 +19,3 @@ section{
     margin: 5em;
     padding: 1.3em 2em 1.3em 2em;
 }
-
-@media (max-width: 800px) {
-    .link_button{
-        display: block;
-    }
-    .logo{
-        padding-top: 10%;
-        width: 80%;
-    }
-    .button{
-        margin-top: 2em;
-        margin-bottom: 0;
-    }
-}
