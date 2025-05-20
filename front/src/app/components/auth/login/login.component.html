@@ -12,7 +12,7 @@
 
     <h2 class="title">Se connecter</h2>
 
-    <form >
+    <form [formGroup]="loginForm">
         <div class="form_input">
             <label for="usernameOrEmail">Email ou nom d'utilisateur</label>
             <input type="text" id="usernameOrEmail" formControlName="usernameOrEmail">
@@ -21,8 +21,8 @@
             <label for="password">Mot de passe</label>
             <input type="password" id="password" formControlName="password">
         </div>
-        <button class="submit" type="submit" >Se connecter</button>
+        <button class="submit" type="submit" (click)="onSubmit()">Se connecter</button>
     </form>
-    <span  class="error">An error occurred</span>
+    <span *ngIf="onError" class="error">une erreur s'est produite (jwt supprimé)</span>
 
 </div>
