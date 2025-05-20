@@ -70,7 +70,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.router.navigate(['/auth/login'])
       },
       error: _ => {
-        debugger;
         this.onError = true
       },
     }
