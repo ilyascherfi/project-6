@@ -65,6 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginSubscription = this.authService.login(loginRequest).subscribe({
       next: (tokenObject: AuthSuccess) => {
         localStorage.setItem('jwtToken', tokenObject.token);
+        this.router.navigate(['/article']);
       },
       error: _ => {
         localStorage.removeItem('jwtToken');
