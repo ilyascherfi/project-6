@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { SessionInformation } from '../interfaces/session-information.interface';
+import { SessionInformation } from '../interfaces/session-information.class';
 import { Router } from "@angular/router";
 
 @Injectable({

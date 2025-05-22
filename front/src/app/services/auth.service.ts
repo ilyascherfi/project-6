@@ -4,6 +4,7 @@ import { RegisterRequest } from '../components/auth/interfaces/registerRequest.i
 import { Observable } from 'rxjs';
 import { LoginRequest } from '../components/auth/interfaces/loginRequest.interface';
 import { AuthSuccess } from '../components/auth/interfaces/authSuccess.interface';
+import { UserInformation } from '../interfaces/user-information';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,12 @@ export class AuthService {
 
   public login(loginRequest: LoginRequest): Observable<AuthSuccess> {
     return this.httpClient.post<AuthSuccess>(`${this.pathService}/login`, loginRequest);
+  }
+
+  public authenticate(token: string): Observable<UserInformation> {
+    const httpHeaders: HttpHeaders = new HttpHeaders({
+        Authorization: `Bearer ${token}`
+    });
+    return this.httpClient.get<UserInformation>(`${this.pathService}/me`, { headers: httpHeaders });
   }
 }

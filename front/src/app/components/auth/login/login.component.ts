@@ -8,6 +8,9 @@ import { AuthService } from '../../../services/auth.service';
 import { Subscription } from 'rxjs';
 import { AuthSuccess } from '../interfaces/authSuccess.interface';
 import { LoginRequest } from '../interfaces/loginRequest.interface';
+import { SessionService } from '../../../services/session.service';
+import { UserInformation } from '../../../interfaces/user-information';
+import { SessionInformation } from '../../../interfaces/session-information.class';
 
 @Component({
   selector: 'app-login',
@@ -28,10 +31,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private sessionService: SessionService
   ) {}
 
   public onError = false;
   public loginSubscription: Subscription | undefined;
+  public authenticateSubscription: Subscription | undefined;
   public loginForm!: FormGroup;
 
   ngOnInit(): void {
@@ -65,11 +70,28 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginSubscription = this.authService.login(loginRequest).subscribe({
       next: (tokenObject: AuthSuccess) => {
         localStorage.setItem('jwtToken', tokenObject.token);
-        this.router.navigate(['/articles']);
+        this.authenticateUser(tokenObject.token);
       },
       error: _ => {
         localStorage.removeItem('jwtToken');
         this.onError = true;
+      },
+    }
+    );
+  }
+
+    public authenticateUser(token: string): void {
+    this.authenticateSubscription = this.authService.authenticate(token).subscribe({
+      next: (user: UserInformation) => {
+        let sessionInformation: SessionInformation = new SessionInformation(
+          token, user.id, user.username, user.email, user.themes
+        )
+        this.sessionService.logIn(sessionInformation);
+        this.router.navigate(['/articles']);
+      },
+      error: _ => {
+        localStorage.removeItem('jwtToken');
+        this.onError = true
       },
     }
     );
