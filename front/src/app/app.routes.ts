@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { ArticleComponent } from './components/article/article.component';
+import { ArticlesComponent } from "./components/articles/articles.component";
 
 export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./components/auth/auth-routing.routes').then(m => m.routes)
   },
-  { title: 'article', path: 'article', component: ArticleComponent }
+  { title: 'articles', path: 'articles', component: ArticlesComponent }
 ];
