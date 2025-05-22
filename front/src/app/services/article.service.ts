@@ -16,6 +16,4 @@ export class ArtcileService {
     return this.httpClient.post<[]>(`${this.pathService}/get`, themeIds);
   }
 
-
-
 }
