@@ -11,11 +11,11 @@ import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-articles',
   imports: [
-    MatIcon,
-    ArticlePreviewComponent,
-    MatCardModule,
-    MatIconModule,
-],
+  MatIcon,
+  ArticlePreviewComponent,
+  MatCardModule,
+  MatIconModule,
+  ],
   templateUrl: './articles.component.html',
   styleUrl: './articles.component.scss'
 })
