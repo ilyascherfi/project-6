@@ -2,6 +2,10 @@ import { Routes } from '@angular/router';
 import { ArticlesComponent } from "./components/articles/articles.component";
 import { AuthGuard } from './guards/auth.guard';
 import { UnauthGuard } from './guards/unauth.guard';
+import { AddArticleComponent } from './components/articles/add-article/add-article.component';
+import { ArticleComponent } from './components/articles/article/article.component';
+import { articleResolver } from './resolvers/article.resolver';
+import { ThemesComponent } from './components/themes/themes.component';
 
 export const routes: Routes = [
   {
@@ -15,4 +19,23 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     component: ArticlesComponent
   },
+  {
+    path: 'articles/add',
+    canActivate: [AuthGuard],
+    component: AddArticleComponent
+  },
+  {
+    path: 'articles/:id',
+    canActivate: [AuthGuard],
+    component: ArticleComponent,
+    resolve: {
+      articleDetails: articleResolver
+    }
+  },
+  {
+    path: 'themes',
+    canActivate: [AuthGuard],
+    component: ThemesComponent
+  },
+
 ];
