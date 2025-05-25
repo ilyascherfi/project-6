@@ -1,5 +1,5 @@
 export interface Theme {
-    topicId: number;
-    name: string;
-    description: string;
+  themeId: number;
+  title: string;
+  description: string;
 }

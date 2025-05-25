@@ -6,7 +6,7 @@ import { HttpClient } from "@angular/common/http";
 @Injectable({
   providedIn: 'root'
 })
-export class ArtcileService {
+export class ArticleService {
 
  private pathService = 'http://localhost:8080/api/article';
 
