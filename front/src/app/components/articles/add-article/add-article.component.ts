@@ -12,7 +12,7 @@ import { PostArticle } from '../../../interfaces/post-article';
 @Component({
   selector: 'app-add-article',
   imports: [
-    MatCardModule,
+   MatCardModule,
     MatIconModule,
     ReactiveFormsModule,
     RouterLink,

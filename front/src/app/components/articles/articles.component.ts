@@ -7,14 +7,15 @@ import { Subscription } from 'rxjs';
 import { ArticlePreview } from '../../interfaces/article-preview';
 import { ArticlePreviewComponent } from "./article-preview/article-preview.component";
 import { MatCardModule } from '@angular/material/card';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-articles',
   imports: [
-  MatIcon,
-  ArticlePreviewComponent,
-  MatCardModule,
-  MatIconModule,
+    HeaderComponent,
+    ArticlePreviewComponent,
+    MatCardModule,
+    MatIconModule,
   ],
   templateUrl: './articles.component.html',
   styleUrl: './articles.component.scss'
