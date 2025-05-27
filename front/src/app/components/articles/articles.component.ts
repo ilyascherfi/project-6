@@ -21,29 +21,40 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class ArticlesComponent implements OnInit, OnDestroy {
 
-  public onError: boolean = false
-  public subscription: Subscription | undefined;
-  public articles: ArticlePreview[] = new Array();
+  constructor(
+    public sessionService: SessionService,
+    public articleService: ArticleService,
+    public router: Router,
+  ) { }
+
+  public onError: Boolean = false;
+  public subscription!: Subscription;
   public onArrowClicked: Boolean = false;
-  constructor(public sessionService: SessionService,
-              public articleService: ArticleService,
-              public router: Router) {}
+  public articles: ArticlePreview[] = new Array();
 
   ngOnInit(): void {
     this.getArticles();
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.subscription.unsubscribe()
   }
 
   private getArticles(): void {
     let themeIds: number[] = this.sessionService._sessionInformation()!.themes.map(theme =>
       theme.themeId
     )
-    this.subscription = this.articleService.getArticlesByThemes(themeIds).subscribe()
+    this.subscription = this.articleService.getArticlesByThemes(themeIds).subscribe({
+      next: (articles: ArticlePreview[]) => {
+        this.articles = articles.sort((a: ArticlePreview, b: ArticlePreview) => { //Sorting dates from most ancient to most recent
+          return new Date(a.date).getTime() - new Date(b.date).getTime()
+        })
+      },
+      error: (error: any) => {
+        this.onError = true;
+        console.log(error);
+      }
+    })
   }
 
   public onAddArticle(): void {
