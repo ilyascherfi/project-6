@@ -12,6 +12,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -44,5 +46,11 @@ public class ArticleService {
     Optional<Article> article = articleRepository.findById(id);
     return modelMapper.map(article, ReturnArticleDTO.class);
   }
+
+  public ReturnArticleDTO getArticleByTheme(List<Theme> theme) {
+    List<Article> article = articleRepository.findByThemeIn(theme);
+    return modelMapper.map(article, ReturnArticleDTO.class);
+  }
+
 
 }

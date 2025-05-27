@@ -5,11 +5,12 @@ import org.springframework.stereotype.Repository;
 import com.openclassrooms.mdd.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
   List<User> findByEmail(String email);
   List<User> findByUsername(String username);
   List<User> findByUsernameOrEmail(String username, String password);
-
+  Optional<User> findById(Integer id);
 }

@@ -1,7 +1,12 @@
 package com.openclassrooms.mdd.configuration;
 
 import com.openclassrooms.mdd.model.User;
+import com.openclassrooms.mdd.model.dto.auth.LoginResponse;
 import com.openclassrooms.mdd.repository.UserRepository;
+import com.openclassrooms.mdd.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,8 +17,10 @@ import java.util.List;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
+  private final UserService userService;
   private UserRepository userRepository;
-  public CustomUserDetailsService(UserRepository userRepository) {
+  public CustomUserDetailsService(UserService userService, UserRepository userRepository) {
+    this.userService = userService;
     this.userRepository = userRepository;
   }
   @Override
@@ -23,5 +30,13 @@ public class CustomUserDetailsService implements UserDetailsService {
       throw new UsernameNotFoundException("User not found with Username or Email: " + usernameOrEmail);
     }
     return new org.springframework.security.core.userdetails.User(user.getFirst().getEmail(), user.getFirst().getPassword(), new ArrayList<>()); //empty GrantedAuthorities
+  }
+
+  public Long getCurrentUserId() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String username = ((UserDetails) authentication.getPrincipal()).getUsername();
+    UserDetails userDetails = loadUserByUsername(username);
+    LoginResponse user = userService.findByEmail(userDetails.getUsername());
+    return user.getId();
   }
 }

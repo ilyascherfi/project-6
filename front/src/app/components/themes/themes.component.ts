@@ -42,7 +42,7 @@ export class ThemesComponent {
     this._themesProps = computed(() =>
       this.themes.map(
         (theme) => {
-          return this.themeToThemeProps(theme, this.customIncludes(this.sessionService._sessionInformation()!.themes, theme))  //Out of the array if already subscribed by the user
+          return this.themeToThemeProps(theme, this.customIncludes(this.sessionService._sessionInformation()!.themes, theme))
         }
       )
     )
