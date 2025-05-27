@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { ArticleService } from '../../../services/article.service';
-import { Theme } from '../../../interfaces/theme.interface';
+import { Theme } from '../../../interfaces/theme.class';
 import { ThemeService } from '../../../services/theme.service';
 import { NgFor } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';

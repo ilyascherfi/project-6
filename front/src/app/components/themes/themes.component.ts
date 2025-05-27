@@ -1,6 +1,6 @@
 import { Component, computed, inject, Signal, signal } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
-import { Theme } from '../../interfaces/theme.interface';
+import { Theme } from '../../interfaces/theme.class';
 import { SessionService } from '../../services/session.service';
 import { ThemeService } from '../../services/theme.service';
 import { ThemeProps } from '../../interfaces/theme-props.class';

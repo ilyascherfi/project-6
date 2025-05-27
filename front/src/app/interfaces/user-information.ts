@@ -1,4 +1,4 @@
-import { Theme } from "./theme.interface";
+import { Theme } from "./theme.class";
 
 export interface UserInformation{
     id: number;

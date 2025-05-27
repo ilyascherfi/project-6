@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SessionInformation } from '../interfaces/session-information.class';
 import { Router } from "@angular/router";
-import { Theme } from '../interfaces/theme.interface';
+import { Theme } from '../interfaces/theme.class';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class SessionService {
     public $isLogged(): Observable<boolean> {
         return this.isLoggedSubject.asObservable();
     }
-s
+
     public logIn(user: SessionInformation): void {
         this._sessionInformation.update(value => { return user });
         this.isLogged = true;

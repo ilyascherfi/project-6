@@ -34,7 +34,6 @@ export const routes: Routes = [
   },
   {
     path: 'themes',
-    canActivate: [AuthGuard],
     component: ThemesComponent
   },
 
