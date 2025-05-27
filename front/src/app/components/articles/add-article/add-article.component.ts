@@ -9,13 +9,15 @@ import { NgFor } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { PostArticle } from '../../../interfaces/post-article';
+import { HeaderComponent } from '../../header/header.component';
 @Component({
   selector: 'app-add-article',
   imports: [
-   MatCardModule,
+    MatCardModule,
     MatIconModule,
     ReactiveFormsModule,
     RouterLink,
+    HeaderComponent,
     NgFor
   ],
   templateUrl: './add-article.component.html',

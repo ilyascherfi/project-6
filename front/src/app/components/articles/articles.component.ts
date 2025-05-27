@@ -47,7 +47,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     )
     this.subscription = this.articleService.getArticlesByThemes(themeIds).subscribe({
       next: (articles: ArticlePreview[]) => {
-        this.articles = articles.sort((a: ArticlePreview, b: ArticlePreview) => { //Sorting dates from most ancient to most recent
+        this.articles = articles.sort((a: ArticlePreview, b: ArticlePreview) => {
           return new Date(a.date).getTime() - new Date(b.date).getTime()
         })
       },
