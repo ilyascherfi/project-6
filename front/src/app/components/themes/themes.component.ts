@@ -4,10 +4,13 @@ import { Theme } from '../../interfaces/theme.interface';
 import { SessionService } from '../../services/session.service';
 import { ThemeService } from '../../services/theme.service';
 import { ThemeProps } from '../../interfaces/theme-props.class';
+import { ThemeComponent } from '../theme/theme.component';
 
 @Component({
   selector: 'app-themes',
-  imports: [],
+  imports: [
+    ThemeComponent
+  ],
   templateUrl: './themes.component.html',
   styleUrl: './themes.component.scss'
 })
@@ -32,7 +35,8 @@ export class ThemesComponent {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-    private init_themesProps(): void {
+
+  private init_themesProps(): void {
     this._themesProps = computed(() =>
       this.themes.map(
         (theme) => {
