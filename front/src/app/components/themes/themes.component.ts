@@ -5,11 +5,13 @@ import { SessionService } from '../../services/session.service';
 import { ThemeService } from '../../services/theme.service';
 import { ThemeProps } from '../../interfaces/theme-props.class';
 import { ThemeComponent } from '../theme/theme.component';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-themes',
   imports: [
-    ThemeComponent
+    ThemeComponent,
+    HeaderComponent,
   ],
   templateUrl: './themes.component.html',
   styleUrl: './themes.component.scss'
