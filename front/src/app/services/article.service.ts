@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { HttpClient } from "@angular/common/http";
-import { Article } from '../interfaces/article.interface';
+import { Article } from '../interfaces/article.class';
 import { PostArticle } from '../interfaces/post-article';
 
 @Injectable({

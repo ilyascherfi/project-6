@@ -6,10 +6,11 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatCardModule } from '@angular/material/card';
 import { SessionService } from '../../../services/session.service';
 import { Subscription } from 'rxjs';
-import { Article } from '../../../interfaces/article.interface';
+import { Article } from '../../../interfaces/article.class';
 import { CommentService } from '../../../services/comment.service';
-import { PostComment } from '../../../interfaces/post-comment.class';
 import { CommentContent } from '../../../interfaces/comment-content.interface';
+import { PostComment } from '../../../interfaces/post-comment.class';
+import { Comment } from "../../../interfaces/comment.class";
 
 @Component({
   selector: 'app-article',
