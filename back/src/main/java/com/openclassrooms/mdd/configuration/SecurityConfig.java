@@ -1,8 +1,6 @@
 package com.openclassrooms.mdd.configuration;
 
-
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,17 +34,14 @@ public class SecurityConfig {
   @Value("${mddapi.app.jwtSecret}")
   private String jwtKey;
 
-  @Autowired
-  CustomUserDetailsService userDetailsService;
-
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http
             .csrf(AbstractHttpConfigurer::disable)
-            .cors(c->c.configurationSource(corsConfigurationSource()))
+            .cors(c -> c.configurationSource(corsConfigurationSource()))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/api/auth/register","/api/auth/login").permitAll()
+                    .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
                     .anyRequest().authenticated())
             .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))
             .build();
@@ -69,7 +64,7 @@ public class SecurityConfig {
   }
 
   @Bean
-  public AuthenticationManager authManager(CustomUserDetailsService userDetailsService, BCryptPasswordEncoder passwordEncoder){
+  public AuthenticationManager authManager(CustomUserDetailsService userDetailsService, BCryptPasswordEncoder passwordEncoder) {
     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
     authProvider.setUserDetailsService(userDetailsService);
     authProvider.setPasswordEncoder(passwordEncoder);
@@ -80,12 +75,10 @@ public class SecurityConfig {
   CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
     configuration.setAllowedOrigins(List.of("http://localhost:4200"));
-    configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT"));
+    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT"));
     configuration.setAllowedHeaders(List.of("*"));
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);
     return source;
   }
-
-
 }

@@ -22,7 +22,7 @@ public class CommentService {
   }
 
   public void addComment(PostComment postComment, String email){
-    User user = userRepository.findByEmail(email).getFirst(); //Unicity and existence
+    User user = userRepository.findByEmail(email).get(); //Unicity and existence
     Article article = articleRepository.findById(postComment.getArticleId()).get(); //Unicity and existence
     Comment comment = new Comment(article, user, postComment.getContent());
     commentRepository.save(comment);

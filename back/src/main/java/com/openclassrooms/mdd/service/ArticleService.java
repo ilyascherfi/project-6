@@ -32,7 +32,7 @@ public class ArticleService {
   }
 
   public void addArticle(PostArticleRequest request, String email){
-    User user = userRepository.findByEmail(email).getFirst();
+    User user = userRepository.findByEmail(email).get();
     Theme theme = themeRepository.findById(Math.toIntExact(request.theme())).get();
     Article article = new Article();
     article.setUser(user);
