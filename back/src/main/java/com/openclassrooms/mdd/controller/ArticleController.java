@@ -19,10 +19,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/article")
 public class ArticleController {
-  private ArticleService articleService;
-  private CustomUserDetailsService customUserDetailsService;
-  private UserService userService;
-  private SubscriptionService subscriptionService;
+  private final ArticleService articleService;
+  private final CustomUserDetailsService customUserDetailsService;
+  private final UserService userService;
+  private final SubscriptionService subscriptionService;
 
   public ArticleController(ArticleService articleService, CustomUserDetailsService customUserDetailsService, UserService userService, SubscriptionService subscriptionService) {
     this.articleService = articleService;
@@ -51,7 +51,6 @@ public class ArticleController {
 
     // get its subscriptions
     List<Theme> themes = subscriptionService.getSubscriptions(user);
-    List<ReturnArticleDTO> article = articleService.getArticleByTheme(themes);
-    return article;
+    return articleService.getArticleByTheme(themes);
   }
 }

@@ -15,13 +15,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticleService {
-  private ArticleRepository articleRepository;
-  private UserRepository userRepository;
-  private ThemeRepository themeRepository;
-  private ModelMapper modelMapper;
+  private final ArticleRepository articleRepository;
+  private final UserRepository userRepository;
+  private final ThemeRepository themeRepository;
+  private final ModelMapper modelMapper;
 
   public ArticleService(ArticleRepository articleRepository, UserRepository userRepository, ThemeRepository themeRepository, ModelMapper modelMapper) {
     this.articleRepository = articleRepository;
@@ -47,10 +48,10 @@ public class ArticleService {
     return modelMapper.map(article, ReturnArticleDTO.class);
   }
 
-  public ReturnArticleDTO getArticleByTheme(List<Theme> theme) {
-    List<Article> article = articleRepository.findByThemeIn(theme);
-    return modelMapper.map(article, ReturnArticleDTO.class);
+  public List<ReturnArticleDTO> getArticleByTheme(List<Theme> themes) {
+    List<Article> articles = articleRepository.findByThemeIn(themes);
+    return articles.stream()
+            .map(article -> modelMapper.map(article, ReturnArticleDTO.class))
+            .collect(Collectors.toList());
   }
-
-
 }
