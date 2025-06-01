@@ -1,6 +1,7 @@
 package com.openclassrooms.mdd.controller;
 
 import com.openclassrooms.mdd.configuration.CustomUserDetailsService;
+import com.openclassrooms.mdd.model.Subscription;
 import com.openclassrooms.mdd.model.Theme;
 import com.openclassrooms.mdd.model.User;
 import com.openclassrooms.mdd.model.dto.PostArticleRequest;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/article")
@@ -50,11 +51,13 @@ public class ArticleController {
   }
 
   @GetMapping("/get")
-  public List<ReturnArticleDTO> getArticles() {
-    // get the user
+  public List<ReturnArticleDTO> getArticlesByThemes() {
     Long userId = customUserDetailsService.getCurrentUserId();
     User user = userService.findById(userId.intValue());
-
-    return articleService.getArticlesByUserId(Math.toIntExact(user.getId()));
+    List<Theme> subscriptions = subscriptionService.getSubscriptions(user);
+    List<Integer> themeIds = subscriptions.stream()
+            .map(Theme::getId)
+            .collect(Collectors.toList());
+    return articleService.getArticleByTheme(themeIds);
   }
 }

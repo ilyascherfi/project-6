@@ -44,15 +44,15 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   private getArticles(): void {
     this.subscription = this.articleService.getArticlesOfCurrentUser().subscribe({
       next: (articles: ArticlePreview[]) => {
-        this.articles = articles.sort((a: ArticlePreview, b: ArticlePreview) => {
-          return new Date(a.date).getTime() - new Date(b.date).getTime()
-        })
+        this.articles = articles.sort((a, b) => {
+          return new Date(b.date).getTime() - new Date(a.date).getTime();
+        });
       },
-      error: (error: any) => {
+      error: (error) => {
         this.onError = true;
-        console.log(error);
+        console.error('Error fetching articles:', error);
       }
-    })
+    });
   }
 
   public onAddArticle(): void {

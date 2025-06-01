@@ -1,9 +1,11 @@
-export class ArticlePreview {
-    constructor(
-        public articleId: number,
-        public title: string,
-        public author: string,
-        public date: Date,
-        public content: string,
-    ) { }
+import { CommentContent } from "./comment-content.interface";
+
+export interface ArticlePreview {
+    articleId: number;
+    title: string;
+    author: string;
+    theme: string;
+    date: Date;
+    content: string;
+    comments: CommentContent[];
 }
