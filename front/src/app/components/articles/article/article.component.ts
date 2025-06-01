@@ -77,9 +77,10 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   private cloneArray(comments: Comment[]): Comment[] {
-    let newArray: Comment[] = [];
-    comments.forEach(value => newArray.push(value));
-    return newArray;
+    if (!comments) {
+      return [];
+    }
+    return [...comments];
   }
 
 }
