@@ -4,19 +4,19 @@ import { SessionService } from "../services/session.service";
 import { Observable } from "rxjs";
 
 export function jwtInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
-    let sessionService = inject(SessionService);
+  const sessionService = inject(SessionService);
 
-    if (!sessionService.isLogged) {
-        return next(req)
-    }
+  if (!sessionService.isLogged || !sessionService._sessionInformation()?.token) {
+    return next(req);
+  }
 
-    const headers = new HttpHeaders({
-        Authorization: `Bearer ${sessionService._sessionInformation()!.token}`
-    });
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${sessionService._sessionInformation()!.token}`
+  });
 
-    const newReq = req.clone({
-        headers
-    })
-    return next(newReq)
 
+  const newReq = req.clone({ headers });
+
+
+  return next(newReq);
 }

@@ -23,9 +23,7 @@ export class ThemeService implements OnDestroy {
   }
 
   public loadInitialData() {
-    const token = localStorage.getItem('jwtToken');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.httpClient.get<Theme[]>(`${this.pathService}`, { headers }).pipe(
+    return this.httpClient.get<Theme[]>(`${this.pathService}`).pipe(
       tap((value) => this.themes$.next(value)),
       catchError((error, caught) => {
         console.error("An error occured loading data");

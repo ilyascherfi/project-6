@@ -14,15 +14,11 @@ export class ArticleService {
 
   constructor(private httpClient: HttpClient) { }
   public getArticlesOfCurrentUser(): Observable<Article[]>{
-    const token = localStorage.getItem('jwtToken');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.httpClient.get<[]>(`${this.pathService}/get`, { headers });
+    return this.httpClient.get<[]>(`${this.pathService}/get`);
   }
 
   public getArticle(articleId: number): Observable<Article> {
-    const token = localStorage.getItem('jwtToken');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.httpClient.get<Article>(`${this.pathService}/${articleId}`, { headers });
+    return this.httpClient.get<Article>(`${this.pathService}/${articleId}`);
   }
 
   public postArticle(article: PostArticle): Observable<void> {
