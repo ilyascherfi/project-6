@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -37,5 +38,5 @@ public class Article {
   @OneToMany(mappedBy = "article")
   @ToString.Exclude
   @JsonIgnore
-  private List<Comment> comments;
+  private List<Comment> comments = new ArrayList<>();
 }

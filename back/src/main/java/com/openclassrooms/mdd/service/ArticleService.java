@@ -3,6 +3,7 @@ package com.openclassrooms.mdd.service;
 import com.openclassrooms.mdd.model.Article;
 import com.openclassrooms.mdd.model.Theme;
 import com.openclassrooms.mdd.model.User;
+import com.openclassrooms.mdd.model.dto.CommentDTO;
 import com.openclassrooms.mdd.model.dto.PostArticleRequest;
 import com.openclassrooms.mdd.model.dto.ReturnArticleDTO;
 import com.openclassrooms.mdd.repository.ArticleRepository;
@@ -73,6 +74,19 @@ public class ArticleService {
 
     if (article.getTheme() != null) {
       dto.setTheme(article.getTheme().getTitle());
+    }
+
+    if (article.getComments() != null) {
+      dto.setComments(article.getComments().stream()
+              .map(comment -> {
+                CommentDTO commentDto = new CommentDTO();
+                commentDto.setContent(comment.getContent());
+                if (comment.getUser() != null) {
+                  commentDto.setAuthor(comment.getUser().getUsername());
+                }
+                return commentDto;
+              })
+              .collect(Collectors.toList()));
     }
 
     return dto;
