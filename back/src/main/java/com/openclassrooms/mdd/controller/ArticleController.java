@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -32,9 +34,13 @@ public class ArticleController {
   }
 
   @PostMapping
-  public ResponseEntity<String> addArticle(Authentication authentication, @Valid @RequestBody PostArticleRequest postArticleRequest) {
+  public ResponseEntity<Map<String, String>> addArticle(Authentication authentication, @Valid @RequestBody PostArticleRequest postArticleRequest) {
     articleService.addArticle(postArticleRequest, authentication.getName());
-    return ResponseEntity.ok("L'article a été bien créé");
+
+    Map<String, String> response = new HashMap<>();
+    response.put("message", "L'article a été bien créé");
+
+    return ResponseEntity.ok(response);
   }
 
   @GetMapping("/{id}")
