@@ -90,4 +90,11 @@ public class ArticleService {
 
     return dto;
   }
+
+  public List<ReturnArticleDTO> getAllArticles() {
+    List<Article> articles = articleRepository.findAll(); // Utilise JPA findAll()
+    return articles.stream()
+            .map(this::convertToDto)
+            .collect(Collectors.toList());
+  }
 }

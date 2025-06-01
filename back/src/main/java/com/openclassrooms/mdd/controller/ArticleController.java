@@ -50,14 +50,21 @@ public class ArticleController {
     return ResponseEntity.ok(articleDTO);
   }
 
+//  @GetMapping("/get")
+//  public List<ReturnArticleDTO> getArticlesByThemes() {
+//    Long userId = customUserDetailsService.getCurrentUserId();
+//    User user = userService.findById(userId.intValue());
+//    List<Theme> subscriptions = subscriptionService.getSubscriptions(user);
+//    List<Integer> themeIds = subscriptions.stream()
+//            .map(Theme::getId)
+//            .collect(Collectors.toList());
+//    return articleService.getArticleByTheme(themeIds);
+//  }
+
   @GetMapping("/get")
-  public List<ReturnArticleDTO> getArticlesByThemes() {
-    Long userId = customUserDetailsService.getCurrentUserId();
-    User user = userService.findById(userId.intValue());
-    List<Theme> subscriptions = subscriptionService.getSubscriptions(user);
-    List<Integer> themeIds = subscriptions.stream()
-            .map(Theme::getId)
-            .collect(Collectors.toList());
-    return articleService.getArticleByTheme(themeIds);
+  public ResponseEntity<List<ReturnArticleDTO>> getAllArticles() {
+    List<ReturnArticleDTO> articles = articleService.getAllArticles();
+    return ResponseEntity.ok(articles);
   }
+
 }
