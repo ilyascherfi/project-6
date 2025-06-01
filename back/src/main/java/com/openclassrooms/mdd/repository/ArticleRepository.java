@@ -10,6 +10,6 @@ import java.util.Optional;
 
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
   List<Article> findByThemeId(Integer themeId);
-
+  List<Article> findByUserId(Integer userId);
   List<Article> findByThemeIn(List<Theme> theme);
 }

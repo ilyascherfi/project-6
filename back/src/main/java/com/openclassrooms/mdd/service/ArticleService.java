@@ -54,4 +54,28 @@ public class ArticleService {
             .map(article -> modelMapper.map(article, ReturnArticleDTO.class))
             .collect(Collectors.toList());
   }
+
+  public List<ReturnArticleDTO> getArticlesByUserId(Integer userId) {
+    return articleRepository.findByUserId(userId).stream()
+            .map(this::convertToDto)
+            .collect(Collectors.toList());
+  }
+
+  private ReturnArticleDTO convertToDto(Article article) {
+    ReturnArticleDTO dto = new ReturnArticleDTO();
+    dto.setArticleId(article.getId().longValue());
+    dto.setTitle(article.getTitle());
+    dto.setContent(article.getContent());
+    dto.setDate(article.getDate());
+
+    if (article.getUser() != null) {
+      dto.setAuthor(article.getUser().getId());
+    }
+
+    if (article.getTheme() != null) {
+      dto.setTheme(article.getTheme().getId());
+    }
+
+    return dto;
+  }
 }

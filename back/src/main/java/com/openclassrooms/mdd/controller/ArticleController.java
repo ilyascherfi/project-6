@@ -49,8 +49,6 @@ public class ArticleController {
     Long userId = customUserDetailsService.getCurrentUserId();
     User user = userService.findById(userId.intValue());
 
-    // get its subscriptions
-    List<Theme> themes = subscriptionService.getSubscriptions(user);
-    return articleService.getArticleByTheme(themes);
+    return articleService.getArticlesByUserId(Math.toIntExact(user.getId()));
   }
 }
