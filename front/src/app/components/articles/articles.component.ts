@@ -42,10 +42,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   }
 
   private getArticles(): void {
-    let themeIds: number[] = this.sessionService._sessionInformation()!.themes.map(theme =>
-      theme.themeId
-    )
-    this.subscription = this.articleService.getArticlesByThemes(themeIds).subscribe({
+    this.subscription = this.articleService.getArticlesOfCurrentUser().subscribe({
       next: (articles: ArticlePreview[]) => {
         this.articles = articles.sort((a: ArticlePreview, b: ArticlePreview) => {
           return new Date(a.date).getTime() - new Date(b.date).getTime()
