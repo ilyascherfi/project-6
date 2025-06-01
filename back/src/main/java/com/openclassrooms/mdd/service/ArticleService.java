@@ -12,7 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,14 +43,14 @@ public class ArticleService {
   }
 
   public ReturnArticleDTO getArticleById(Integer id) {
-    Optional<Article> article = articleRepository.findById(id);
-    return modelMapper.map(article, ReturnArticleDTO.class);
+    Article article = articleRepository.findById(id).orElseThrow(() -> new RuntimeException("Article not found"));
+    return convertToDto(article);
   }
 
   public List<ReturnArticleDTO> getArticleByTheme(List<Theme> themes) {
     List<Article> articles = articleRepository.findByThemeIn(themes);
     return articles.stream()
-            .map(article -> modelMapper.map(article, ReturnArticleDTO.class))
+            .map(this::convertToDto)
             .collect(Collectors.toList());
   }
 
@@ -69,11 +68,11 @@ public class ArticleService {
     dto.setDate(article.getDate());
 
     if (article.getUser() != null) {
-      dto.setAuthor(article.getUser().getId());
+      dto.setAuthor(article.getUser().getUsername());
     }
 
     if (article.getTheme() != null) {
-      dto.setTheme(article.getTheme().getId());
+      dto.setTheme(article.getTheme().getTitle());
     }
 
     return dto;

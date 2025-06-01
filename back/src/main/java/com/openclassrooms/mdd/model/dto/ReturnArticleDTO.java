@@ -8,8 +8,8 @@ import java.time.LocalDate;
 public class ReturnArticleDTO {
   private Long articleId;
   private String title;
-  private Long author;
-  private Long theme;
+  private String author;
+  private String theme;
   private LocalDate date;
   private String content;
 }

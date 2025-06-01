@@ -20,8 +20,8 @@ public class ModelMapperConfig {
       protected void configure() {
         map().setArticleId(Long.valueOf(source.getId()));
         map().setTitle(source.getTitle());
-        map().setAuthor(source.getUser().getId());
-        map().setTheme(source.getTheme().getId());
+        map().setAuthor(source.getUser().getUsername());
+        map().setTheme(source.getTheme().getTitle());
         map().setDate(source.getDate());
         map().setContent(source.getContent());
       }

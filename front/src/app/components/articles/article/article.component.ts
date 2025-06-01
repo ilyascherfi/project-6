@@ -42,7 +42,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._article = signal(this.route.snapshot.data['articleDetails']);
-
     this.form = this.fb.group({
       content: [
         "",

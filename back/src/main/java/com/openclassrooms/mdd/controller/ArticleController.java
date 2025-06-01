@@ -44,7 +44,7 @@ public class ArticleController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<ReturnArticleDTO> getArticlesByThemes(@PathVariable("id") Integer id) {
+  public ResponseEntity<ReturnArticleDTO> getArticleById(@PathVariable("id") Integer id) {
     ReturnArticleDTO articleDTO = articleService.getArticleById(id);
     return ResponseEntity.ok(articleDTO);
   }
