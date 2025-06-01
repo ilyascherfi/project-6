@@ -28,7 +28,7 @@ public class UserController {
     return ResponseEntity.ok("User Modification Successfull");
   }
 
-  @PutMapping(value= "/noPassword", consumes="application/json")
+  @PutMapping(value= "/nopassword", consumes="application/json")
   public ResponseEntity<?> putUserNoPassword(@Valid@RequestBody ModifyNoPassword modifyRequest) {
     userService.putUserNoPassword(modifyRequest);
     return ResponseEntity.ok("User Modification Successfull");

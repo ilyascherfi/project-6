@@ -24,6 +24,6 @@ export class UserService {
     return this.httpClient.put(`${this.pathService}/password`, putRequest, { responseType: 'text' });
   }
   public modifyProfileNoPassword(putRequest: ModifyNoPassword): any {
-    return this.httpClient.put(`${this.pathService}/noPassword`, putRequest, { responseType: 'text' });
+    return this.httpClient.put(`${this.pathService}/nopassword`, putRequest, { responseType: 'text' });
   }
 }
