@@ -50,7 +50,7 @@ public class ArticleController {
     return ResponseEntity.ok(articleDTO);
   }
 
-  @PostMapping("/get")
+  @GetMapping("/get")
   public List<ReturnArticleDTO> getArticlesByThemes() {
     Long userId = customUserDetailsService.getCurrentUserId();
     User user = userService.findById(userId.intValue());

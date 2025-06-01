@@ -1,3 +1,4 @@
 export interface CommentContent {
-    content: string
+  content: string;
+  author: string;
 }
