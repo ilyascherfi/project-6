@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ThemeProps } from '../../interfaces/theme-props.class';
 import { SessionService } from '../../services/session.service';
@@ -10,7 +10,7 @@ import { UserService } from '../../services/user-service.service';
   templateUrl: './theme.component.html',
   styleUrl: './theme.component.scss'
 })
-export class ThemeComponent {
+export class ThemeComponent implements OnDestroy {
 
   themeProps = input.required<ThemeProps>();
 

@@ -15,6 +15,6 @@ export class UserService {
   }
 
   public themeUnsubscribe(themeId: number): any {
-    return this.httpClient.put(`${this.pathService}/unSubscribe/${themeId}`, null, { responseType: 'text' });
+    return this.httpClient.put(`${this.pathService}/unsubscribe/${themeId}`, null, { responseType: 'text' });
   }
 }
