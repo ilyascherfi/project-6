@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Article } from '../interfaces/article.class';
 import { PostArticle } from '../interfaces/post-article';
 
@@ -13,8 +13,8 @@ export class ArticleService {
   private pathService = 'http://localhost:8080/api/article';
 
   constructor(private httpClient: HttpClient) { }
-  public getArticlesByThemes(themeIds: number[]): Observable<[]> {
-    return this.httpClient.post<[]>(`${this.pathService}/get`, themeIds);
+  public getArticlesOfCurrentUser(): Observable<Article[]>{
+    return this.httpClient.get<[]>(`${this.pathService}/get`);
   }
 
   public getArticle(articleId: number): Observable<Article> {

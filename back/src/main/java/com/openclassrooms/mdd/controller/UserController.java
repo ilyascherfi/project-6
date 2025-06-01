@@ -35,15 +35,15 @@ public class UserController {
   }
 
 
-  @PutMapping(value = "/subscribe")
-  public ResponseEntity<String> subscribeToTheme(@RequestBody ThemeSubscriptionRequest request, Authentication authentication) {
-    userService.addThemeToUser(authentication.getName(), request.getThemeId());
+  @PutMapping(value = "/subscribe/{themeId}")
+  public ResponseEntity<String> subscribeToTheme(@PathVariable Long themeId, Authentication authentication) {
+    userService.addThemeToUser(authentication.getName(), Math.toIntExact(themeId));
     return ResponseEntity.ok("Theme added successfully");
   }
 
-  @PutMapping(value = "/unsubscribe")
-  public ResponseEntity<String> unSubscribeToTheme(@RequestBody ThemeSubscriptionRequest request, Authentication authentication) {
-    userService.removeThemeToUser(authentication.getName(), request.getThemeId());
+  @PutMapping(value = "/unsubscribe/{themeId}")
+  public ResponseEntity<String> unsubscribeFromTheme(@PathVariable Long themeId, Authentication authentication) {
+    userService.removeThemeToUser(authentication.getName(), Math.toIntExact(themeId));
     return ResponseEntity.ok("Theme removed successfully");
   }
 }

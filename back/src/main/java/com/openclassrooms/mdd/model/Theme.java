@@ -1,10 +1,12 @@
 package com.openclassrooms.mdd.model;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import lombok.ToString;
+
 import java.util.List;
 
 @Entity
@@ -20,8 +22,12 @@ public class Theme {
   private String description;
 
   @ManyToMany(mappedBy = "subscriptions")
+  @ToString.Exclude
+  @JsonIgnore
   private List<User> subscribers;
 
   @OneToMany(mappedBy = "theme")
+  @ToString.Exclude
+  @JsonIgnore
   private List<Article> articles;
 }

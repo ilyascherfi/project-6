@@ -1,10 +1,11 @@
 package com.openclassrooms.mdd.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-
-import jakarta.persistence.*;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,12 +25,17 @@ public class Article {
 
   @ManyToOne
   @JoinColumn(name = "user_id")
+  @ToString.Exclude
+  @JsonIgnore
   private User user;
 
   @ManyToOne
   @JoinColumn(name = "theme_id")
+  @ToString.Exclude
   private Theme theme;
 
   @OneToMany(mappedBy = "article")
+  @ToString.Exclude
+  @JsonIgnore
   private List<Comment> comments;
 }

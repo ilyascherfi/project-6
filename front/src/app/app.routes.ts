@@ -6,6 +6,7 @@ import { AddArticleComponent } from './components/articles/add-article/add-artic
 import { ArticleComponent } from './components/articles/article/article.component';
 import { articleResolver } from './resolvers/article.resolver';
 import { ThemesComponent } from './components/themes/themes.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
   {
@@ -36,6 +37,11 @@ export const routes: Routes = [
     path: 'themes',
     canActivate: [AuthGuard],
     component: ThemesComponent
+  },
+  {
+    path: 'profile',
+    canActivate: [AuthGuard],
+    component: ProfileComponent
   },
 
 ];
