@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
   List<Article> findByThemeId(Integer themeId);
   List<Article> findByUserId(Integer userId);
-  List<Article> findByThemeIn(List<Theme> theme);
+  List<Article> findByThemeIdIn(List<Integer> themeIds);
   @Query("SELECT a FROM Article a LEFT JOIN FETCH a.comments WHERE a.id = :id")
   Optional<Article> findByIdWithComments(@Param("id") Integer id);
 }

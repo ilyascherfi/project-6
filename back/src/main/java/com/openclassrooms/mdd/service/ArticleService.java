@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,8 +47,8 @@ public class ArticleService {
     return convertToDto(article);
   }
 
-  public List<ReturnArticleDTO> getArticleByTheme(List<Theme> themes) {
-    List<Article> articles = articleRepository.findByThemeIn(themes);
+  public List<ReturnArticleDTO> getArticleByTheme(List<Integer> themeIds) {
+    List<Article> articles = articleRepository.findByThemeIdIn(themeIds);
     return articles.stream()
             .map(this::convertToDto)
             .collect(Collectors.toList());
