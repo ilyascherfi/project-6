@@ -11,7 +11,7 @@ export class ThemeService implements OnDestroy {
   private pathService = 'http://localhost:8080/api/theme';
 
   public subscription!: Subscription
-  public themes: Theme[] = {} as Theme[];
+  public themes: Theme[] = [] as Theme[];
   public themes$ = new BehaviorSubject<Theme[]>(this.themes)
 
   constructor(private httpClient: HttpClient) {

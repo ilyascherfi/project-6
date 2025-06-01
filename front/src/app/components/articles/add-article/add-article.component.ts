@@ -26,18 +26,20 @@ import { HeaderComponent } from '../../header/header.component';
 export class AddArticleComponent implements OnInit, OnDestroy {
 
   private themeService: ThemeService = inject(ThemeService)
-  constructor(private fb: FormBuilder,
-    private router: Router,
-    private articleService: ArticleService) { }
-
   public onError: Boolean = false;
   public subscription!: Subscription;
   public form!: FormGroup;
   public themes$: Observable<Theme[]> = this.themeService.themes$;
   public themes: Theme[] = this.themeService.themes;
 
+  constructor(private fb: FormBuilder,
+    private router: Router,
+    private articleService: ArticleService) { }
+
+
   ngOnInit(): void {
     this.subscription = this.themes$.subscribe(themes => {
+      console.log("themes", themes);
       this.themes = themes
     })
 
