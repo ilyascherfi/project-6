@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, catchError, Subscription, take, tap } from 'rxjs';
 import { Theme } from '../interfaces/theme.class';
@@ -23,7 +23,9 @@ export class ThemeService implements OnDestroy {
   }
 
   public loadInitialData() {
-    return this.httpClient.get<Theme[]>(`${this.pathService}`).pipe(
+    const token = localStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.get<Theme[]>(`${this.pathService}`, { headers }).pipe(
       tap((value) => this.themes$.next(value)),
       catchError((error, caught) => {
         console.error("An error occured loading data");

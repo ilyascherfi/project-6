@@ -20,7 +20,9 @@ export class ArticleService {
   }
 
   public getArticle(articleId: number): Observable<Article> {
-    return this.httpClient.get<Article>(`${this.pathService}/${articleId}`);
+    const token = localStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.get<Article>(`${this.pathService}/${articleId}`, { headers });
   }
 
   public postArticle(article: PostArticle): Observable<void> {
