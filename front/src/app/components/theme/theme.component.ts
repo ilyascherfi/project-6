@@ -45,17 +45,5 @@ export class ThemeComponent implements OnDestroy {
     });
   }
 
-  public onUnsubscribe(): void {
-    this.unSubscribeObservableIfSubscription();
-    this.subscription = this.userService.themeUnsubscribe(this.themeProps().theme.themeId).subscribe({
-      next: () => {
-        this.sessionService.removeTheme(this.themeProps().theme);
-      },
-      error: (error: any) => {
-        this.onError = true;
-        console.log(error);
-      },
-    });
-  }
 
 }
