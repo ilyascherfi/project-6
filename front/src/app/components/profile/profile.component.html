@@ -25,6 +25,6 @@
   <h2 class="title">Abonnements</h2>
 
   @for (themeElement of _themesProps(); track themeElement.theme.themeId) {
-  <app-theme class="theme" [themeProps]="themeElement"></app-theme>
+  <app-theme class="theme" [themeProps]="themeElement" [articleView]="false"></app-theme>
   }
 </div>

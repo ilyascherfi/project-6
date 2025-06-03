@@ -1,13 +1,18 @@
 <div class="theme_container">
-  <h2 class="theme_title">{{themeProps().theme.title}}</h2>
-  <p class="theme_description">{{themeProps().theme.description}}</p>
-  @if (!themeProps().isSubscribed) {
+  <h2 class="theme_title">{{ themeProps.theme.title }}</h2>
+  <p class="theme_description">{{ themeProps.theme.description }}</p>
+
+  @if (!themeProps.isSubscribed) {
     <button class="subscribe" (click)="onSubscribe()">S'abonner</button>
   }
-  @else {
+  @else if (articleView) {
     <button class="already-subscribed" disabled>Déjà abonné</button>
   }
+  @else {
+    <button class="subscribe" (click)="onUnsubscribe()">Se désabonner</button>
+  }
 
-  @if(onError) {<p class="error">An error occurred</p>}
-
+  @if (onError) {
+    <p class="error">An error occurred</p>
+  }
 </div>

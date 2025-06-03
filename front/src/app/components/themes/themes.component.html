@@ -2,6 +2,6 @@
 
 <div class="page_container">
     @for (themeElement of _themesProps(); track themeElement.theme.themeId) {
-        <app-theme class="theme" [themeProps]="themeElement"></app-theme>
+        <app-theme class="theme" [themeProps]="themeElement" [articleView]="true"></app-theme>
     }
 </div>
