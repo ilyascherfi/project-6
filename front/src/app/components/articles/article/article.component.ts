@@ -66,7 +66,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
           let comment: Comment = new Comment(this.sessionService._sessionInformation()!.username, commentContent.content);
           newArray.push(comment)
           return { ...article, comments: newArray };
-        })
+        });
+        this.form.reset();
       },
       error: (error: any) => {
         this.onError = true;
